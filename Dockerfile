@@ -1,9 +1,11 @@
 FROM huggla/postgresql as postgresql
+FROM huggla/freetds as freetds
 FROM huggla/alpine-official:20181005-edge as alpine
 
 ARG BUILDDEPS="git g++"
 
 COPY --from=postgresql /postgresql /
+COPY --from=freetds /freetds /freetds-dev /
 
 RUN apk --no-cache add $BUILDDEPS \
  && buildDir="$(mktemp -d)" \
@@ -16,7 +18,8 @@ RUN apk --no-cache add $BUILDDEPS \
  && make -j1 DESTDIR="$destDir" USE_PGXS=1 install \
  && apk --no-cache --purge del $BUILDDEPS \
  && cd / \
- && rm -rf "$buildDir"
+ && rm -rf "$buildDir" \
+ && echo "huggla/tds_fdw depends on huggla/postgresql and huggla/freetds" > /apps/README-tds_fdw
 
 FROM scratch as image
 
