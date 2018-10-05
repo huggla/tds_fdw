@@ -1,6 +1,9 @@
+FROM huggla/postgresql as postgresql
 FROM huggla/alpine-official:20181005-edge as alpine
 
 ARG BUILDDEPS="git g++"
+
+COPY --from=postgresql /postgresql /
 
 RUN apk --no-cache add $BUILDDEPS \
  && buildDir="$(mktemp -d)" \
