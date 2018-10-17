@@ -3,7 +3,7 @@ ARG DESTDIR="/tds_fdw"
 FROM huggla/freetds:1.00.103 as freetds
 FROM huggla/alpine-official:20181005-edge as alpine
 
-ARG BUILDDEPS="postgres-dev git g++"
+ARG BUILDDEPS="postgresql-dev git make g++"
 ARG DESTDIR
 
 COPY --from=freetds /freetds /freetds-dev /
