@@ -1,2 +1,2 @@
 # tds_fdw
-tds_fdw for Postgresql.
+tds_fdw files for Postgresql.
