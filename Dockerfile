@@ -1,7 +1,8 @@
+ARG TAG="20181101-edge"
 ARG DESTDIR="/tds_fdw"
 
-FROM huggla/freetds:1.00.103 as freetds
-FROM huggla/alpine-official:20181005-edge as alpine
+FROM huggla/freetds:$TAG as freetds
+FROM huggla/alpine-official:$TAG as alpine
 
 ARG BUILDDEPS="postgresql-dev git make g++"
 ARG DESTDIR
