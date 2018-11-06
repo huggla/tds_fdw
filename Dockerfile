@@ -16,8 +16,7 @@ RUN apk --no-cache add $BUILDDEPS \
  && git clone https://github.com/tds-fdw/tds_fdw.git \
  && cd tds_fdw \
  && make USE_PGXS=1 \
- && make USE_PGXS=1 install \
- && echo "huggla/tds_fdw depends on huggla/postgresql and huggla/freetds" > $DESTDIR/README-tds_fdw
+ && make USE_PGXS=1 install
 
 FROM huggla/busybox:$TAG as image
 
