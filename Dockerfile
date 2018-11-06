@@ -8,9 +8,9 @@ ARG BUILDDEPS="postgresql-dev git make g++"
 ARG DESTDIR
 
 COPY --from=freetds /freetds /freetds-dev /
+COPY --from=freetds /freetds $DESTDIR
 
 RUN apk --no-cache add $BUILDDEPS \
- && mkdir -p $DESTDIR \
  && buildDir="$(mktemp -d)" \
  && cd $buildDir \
  && git clone https://github.com/tds-fdw/tds_fdw.git \
