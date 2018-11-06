@@ -19,7 +19,7 @@ RUN apk --no-cache add $BUILDDEPS \
  && make USE_PGXS=1 install \
  && echo "huggla/tds_fdw depends on huggla/postgresql and huggla/freetds" > $DESTDIR/README-tds_fdw
 
-FROM scratch as image
+FROM huggla/busybox:$TAG as image
 
 ARG DESTDIR
 
