@@ -6,9 +6,6 @@ FROM huggla/alpine-official:$TAG as alpine
 
 ARG RUNDEPS="libressl2.7-libssl unixodbc"
 
-COPY --from=freetds /usr /usr
-COPY --from=freetds /etc /etc
-COPY --from=freetds /bin /bin
 COPY --from=freetds /lib /lib
 COPY --from=tdsfdw /tds_fdw /
 
