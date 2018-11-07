@@ -8,7 +8,6 @@ ARG BUILDDEPS="postgresql-dev git make g++ libressl2.7-libssl unixodbc"
 ARG DESTDIR
 
 COPY --from=freetds /freetds /freetds-dev /
-COPY --from=freetds /freetds/* /RUNDEPS-freetds $DESTDIR/
 
 RUN apk --no-cache add $BUILDDEPS \
  && buildDir="$(mktemp -d)" \
@@ -17,6 +16,9 @@ RUN apk --no-cache add $BUILDDEPS \
  && cd tds_fdw \
  && make USE_PGXS=1 \
  && make USE_PGXS=1 install
+
+COPY --from=freetds /freetds $DESTDIR
+COPY --from=freetds /RUNDEPS-freetds $DESTDIR/RUNDEPS-tds_fdw
 
 FROM huggla/busybox:$TAG as image
 
