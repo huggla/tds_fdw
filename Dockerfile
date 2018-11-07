@@ -17,7 +17,7 @@ RUN apk --no-cache add $BUILDDEPS \
  && make USE_PGXS=1 \
  && make USE_PGXS=1 install
 
-COPY --from=freetds /freetds $DESTDIR
+COPY --from=freetds /freetds /freetds-dev $DESTDIR
 COPY --from=freetds /RUNDEPS-freetds $DESTDIR/RUNDEPS-tds_fdw
 
 FROM huggla/busybox:$TAG as image
