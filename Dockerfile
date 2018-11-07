@@ -4,7 +4,7 @@ ARG DESTDIR="/tds_fdw"
 FROM huggla/freetds:$TAG as freetds
 FROM huggla/alpine-official:$TAG as alpine
 
-ARG BUILDDEPS="postgresql-dev git make g++"
+ARG BUILDDEPS="postgresql-dev git make g++ libressl2.7-libssl unixodbc"
 ARG DESTDIR
 
 COPY --from=freetds /freetds /freetds-dev /
