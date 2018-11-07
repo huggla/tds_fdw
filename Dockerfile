@@ -7,8 +7,8 @@ FROM huggla/alpine-official:$TAG as alpine
 ARG BUILDDEPS="postgresql-dev git make g++"
 ARG DESTDIR
 
-COPY --from=freetds /apps/freetds /apps/freetds-dev /
-COPY --from=freetds /apps/freetds/* /apps/RUNDEPS-freetds $DESTDIR/
+COPY --from=freetds /freetds /freetds-dev /
+COPY --from=freetds /freetds/* /RUNDEPS-freetds $DESTDIR/
 
 RUN apk --no-cache add $BUILDDEPS \
  && buildDir="$(mktemp -d)" \
