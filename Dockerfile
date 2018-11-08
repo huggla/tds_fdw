@@ -1,15 +1,15 @@
-ARG TAG="20181106-edge"
+ARG TAG="20181108-edge"
 ARG DESTDIR="/tds_fdw"
 
-FROM huggla/freetds:test2 as freetds
+FROM huggla/freetds:$TAG as freetds
 FROM huggla/alpine-official:$TAG as alpine
 
-ARG BUILDDEPS="postgresql-dev git make g++ libressl2.7-libssl unixodbc"
+ARG BUILDDEPS="postgresql-dev git make g++ libressl2.7-libssl unixodbc gettext"
 ARG DESTDIR
 
 COPY --from=freetds /freetds /freetds-dev /
 
-RUN apk --no-cache add $BUILDDEPS \
+RUN apk add $BUILDDEPS \
  && buildDir="$(mktemp -d)" \
  && cd $buildDir \
  && git clone https://github.com/tds-fdw/tds_fdw.git \
@@ -18,12 +18,7 @@ RUN apk --no-cache add $BUILDDEPS \
  && make USE_PGXS=1 install
 
 COPY --from=freetds /freetds $DESTDIR
-COPY --from=freetds /lib $DESTDIR/freetds-lib
-COPY --from=freetds /usr $DESTDIR/freetds-usr
-COPY --from=freetds /etc $DESTDIR/freetds-etc
-COPY --from=freetds /bin $DESTDIR/freetds-bin
-
-#COPY --from=freetds /RUNDEPS-freetds $DESTDIR/RUNDEPS-tds_fdw
+COPY --from=freetds /RUNDEPS-freetds $DESTDIR/RUNDEPS-tds_fdw
 
 FROM huggla/busybox:$TAG as image
 
