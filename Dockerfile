@@ -1,8 +1,8 @@
-ARG TAG="20181204"
+ARG TAG="20190129"
 ARG DESTDIR="/tds_fdw"
 
 FROM huggla/freetds:$TAG as freetds
-FROM huggla/alpine-official:$TAG as alpine
+FROM huggla/alpine-official as alpine
 
 ARG BUILDDEPS="postgresql-dev git make g++ libressl2.7-libssl unixodbc gettext"
 ARG DESTDIR
