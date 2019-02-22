@@ -1,4 +1,4 @@
-ARG TAG="20190206"
+ARG TAG="20190220"
 ARG DESTDIR="/tds_fdw"
 
 FROM huggla/freetds:$TAG as freetds
